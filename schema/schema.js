@@ -4,10 +4,10 @@ const axios = require('axios').default
 
 const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = graphql
 
-const users = [
-  { id: '11', firstName: 'Bill', age: 20 },
-  { id: '22', firstName: 'Anne', age: 29 },
-]
+// const users = [
+//   { id: '11', firstName: 'Bill', age: 20 },
+//   { id: '22', firstName: 'Anne', age: 29 },
+// ]
 
 const UserType = new GraphQLObjectType({
   name: 'User',
