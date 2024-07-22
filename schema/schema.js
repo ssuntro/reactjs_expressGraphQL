@@ -17,7 +17,7 @@ const UserType = new GraphQLObjectType({
     age: { type: GraphQLInt },
   },
 })
-
+//
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
