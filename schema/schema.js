@@ -1,3 +1,5 @@
+//graphQL = 50% query + 50% schema
+
 const graphql = require('graphql')
 // const _ = require('lodash')
 const axios = require('axios').default
@@ -8,6 +10,7 @@ const {
   GraphQLInt,
   GraphQLSchema,
   GraphQLList,
+  GraphQLNonNull,
 } = graphql
 
 // const users = [
@@ -79,6 +82,26 @@ const RootQuery = new GraphQLObjectType({
   },
 })
 
-module.exports = new GraphQLSchema({ query: RootQuery })
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addUser: {
+      type: UserType, //can be sth else depends on requirement
+      args: {
+        firstName: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
+        companyId: { type: GraphQLString },
+      },
+      resolve(parentValue, { firstName, age }) {
+        return axios
+          .post('http://localhost:3000/users', { firstName, age })
+          .then((res) => res.data)
+      },
+    },
+  },
+})
 
-//graphQL = 50% query + 50% schema
+module.exports = new GraphQLSchema({
+  query: RootQuery,
+  mutation, //mutation: mutation
+})
